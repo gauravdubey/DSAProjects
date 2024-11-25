@@ -1,4 +1,4 @@
-package dsatopics.arrays;
+package dsatopics.arrays.prefixsum;
 
 import java.util.Arrays;
 
