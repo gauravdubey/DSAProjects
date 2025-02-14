@@ -316,7 +316,7 @@ public class LeetCodeArrayExample {
     private static int maxSum(int[] nums) {
 
         HashMap<Integer,Integer>maxMap=new HashMap<>();
-        int maxSum=Integer.MIN_VALUE;
+        int maxSum=-1;
         for(int num:nums){
             int largestDigit=getLargestDigit(num);
             if (maxMap.containsKey(largestDigit)) {
