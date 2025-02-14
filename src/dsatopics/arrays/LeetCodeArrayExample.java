@@ -1,4 +1,4 @@
-package dsatopics.arrays;
+package com.gaurav.dsalib.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,23 +10,26 @@ public class LeetCodeArrayExample {
         int[] arr = {3,1, 1, 2,2,4,4};
         int[] arr2 = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
         int []arr3={0,1,0,3,12};
-        int[]arr4={0,1,2,3};
+        int[]arr4={2,3,4};
         int[]arr5={2,7,4,5};
         int[]arr6={ -2,1,-3,4,-1,2,1,-5,4};
         int[]arr7={1,0,1,0,1,0};
         int [] nums={2,3,5,10,50,80};
         int[]tripletSumArr={1,4,45,6,10,8};
+        int [] maxPairSumArr= { 2536,1613,3366,162 };
+
 //        System.out.println("\n Length of array after removal of element : "+removeElement(arr,3));
 //        getSecondLargest(arr);
 //        System.out.println("Removed duplicate count : "+ removeDuplicates(arr2));
 //        moveZeroes(arr3);
-//        System.out.println("Array of Sum Target : "+ Arrays.toString(twoSum(arr4, 9)));
+//        System.out.println("Array of Sum Target : "+ Arrays.toString(twoSum(arr4, 6)));
 //        System.out.println("Single number in Array : "+ findSingleNumberInArray(arr));
-        System.out.println("Missing number in Array : "+ missingNumber(arr4));
+//        System.out.println("Missing number in Array : "+ missingNumber(arr4));
 //        System.out.println("SubArray Sum : "+ subArraySum(arr6));
 //        moveOnesAtEnd(arr7);
 //        System.out.println("Array of Diff Target : "+ Arrays.toString(pairWithGivenDiff(nums, 45)));
 //        System.out.println("Triplet sum is available in array : "+findTripletSum(tripletSumArr,6,13));
+        System.out.println("Maximum pair sum in array : "+maxSum(maxPairSumArr));
     }
 
 
@@ -43,7 +46,7 @@ public class LeetCodeArrayExample {
         for (int i = 0; i < numbers.length; i++) {
             int complement=target-numbers[i];
             if (mapItem.containsKey(complement)){
-                return new int[]{mapItem.get(complement),i};
+                return new int[]{mapItem.get(complement)+1,i+1};
             }
             mapItem.put(numbers[i],i);
         }
@@ -287,6 +290,7 @@ public class LeetCodeArrayExample {
     }
 
     /**
+     * Kadane's Algo
      * Find the maximum subarray sum
      * @param arr
      * @return
@@ -302,5 +306,40 @@ public class LeetCodeArrayExample {
             }
         }
         return ans;
+    }
+
+    /**
+     * Find the maximum pair sum in array
+     * @param nums
+     * @return
+     */
+    private static int maxSum(int[] nums) {
+
+        HashMap<Integer,Integer>maxMap=new HashMap<>();
+        int maxSum=Integer.MIN_VALUE;
+        for(int num:nums){
+            int largestDigit=getLargestDigit(num);
+            if (maxMap.containsKey(largestDigit)) {
+                maxSum = Math.max(maxSum, maxMap.get(largestDigit) + num);
+                maxMap.put(largestDigit, Math.max(maxMap.get(largestDigit), num));
+            } else {
+                maxMap.put(largestDigit, num);
+            }
+        }
+        return maxSum;
+    }
+
+    /**
+     * Find the largest digit from a number
+     * @param num
+     * @return
+     */
+    private static int getLargestDigit(int num){
+        int maxDigit=0;
+        while(num>0){
+            maxDigit=Math.max(maxDigit,num%10);
+            num/=10;
+        }
+        return maxDigit;
     }
 }
